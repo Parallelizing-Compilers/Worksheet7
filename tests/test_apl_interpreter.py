@@ -2,9 +2,9 @@ import pytest
 
 import numpy as np
 
-from apl2c.apl import APLInterpreter
-from apl2c.apl import nodes as apl
-from apl2c.codegen import NumpyBuffer, NumpyBufferFType
+from calc.apl import APLInterpreter
+from calc.apl import nodes as apl
+from calc.codegen import NumpyBuffer, NumpyBufferFType
 
 
 def create_array_literal(input_array):

@@ -1,10 +1,10 @@
-# Assignment: APL2C
+# Assignment: CALC
 
 A python compiler that translates APL code to C code.
 
 ## Installation
 
-APL2C uses [poetry](https://python-poetry.org/) for packaging. To install for
+CALC uses [poetry](https://python-poetry.org/) for packaging. To install for
 development, clone the repository and run:
 ```bash
 poetry install --extras test
@@ -17,19 +17,19 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, development setup, and be
 
 ### Overview
 
-APL2C is a compiler that translates [APL](https://xpqz.github.io/learnapl/intro.html), an array-oriented programming language known for its concise syntax and powerful multi-dimensional array operations, into C code for efficient execution. The project comprises two main components:
+CALC is a compiler that translates [APL](https://xpqz.github.io/learnapl/intro.html), an array-oriented programming language known for its concise syntax and powerful multi-dimensional array operations, into C code for efficient execution. The project comprises two main components:
 
-1. **Interpreter** (`src/apl2c/apl/interpreter.py`):
+1. **Interpreter** (`src/calc/apl/interpreter.py`):
    - Executes APL operations directly in Python using NumPy for efficient array manipulation.
    - Defines functions such as `_add`, `_sub`, `_neg`, `_exp`, `_transpose`, `_iota`, `_reshape`, and `_reduce`, which implement the semantics of APL operations.
    - Serves as the reference for the expected behavior of each operation which is the __ground truth for your implementations__.
    - You __should not__ modify these functions.
 
-2. **Codegen** (`src/apl2c/apl/codegen.py`):
+2. **Codegen** (`src/calc/apl/codegen.py`):
    - Generates C code for APL operations, producing `NumpyBuffer` structs that interface with NumPy arrays in C.
    - The generated C code is compiled and executed.
 
-**Your task is to implement the codegen functions (`_c_add`, `_c_sub`, `_c_neg`, `_c_exp`, `_c_transpose`, `_c_iota`, `_c_reshape`, `_c_reduce`) in `src/apl2c/apl/codegen.py` to generate C code that matches the behavior of the corresponding interpreter functions.**
+**Your task is to implement the codegen functions (`_c_add`, `_c_sub`, `_c_neg`, `_c_exp`, `_c_transpose`, `_c_iota`, `_c_reshape`, `_c_reduce`) in `src/calc/apl/codegen.py` to generate C code that matches the behavior of the corresponding interpreter functions.**
 
 ### Task Description
 
@@ -45,13 +45,13 @@ Your goal is to implement the following functions in `codegen.py` to generate C 
 - `_c_reduce`: Sums elements along the last dimension of an array (e.g., `[[1, 2], [3, 4]] → [3, 7]`).
 
 Each function must:
-- Use the `APL2CContext` (`ctx`) to emit C code statements that manipulate `NumpyBuffer` structs.
+- Use the `CALCContext` (`ctx`) to emit C code statements that manipulate `NumpyBuffer` structs.
 - Allocate output arrays using `c_alloc`, access input elements with `c_load`, and store results with `c_store`.
 - Produce results identical to the corresponding interpreter function in `interpreter.py`.
 
 ### Key Components
 
-#### Interpreter Reference (`src/apl2c/apl/interpreter.py`)
+#### Interpreter Reference (`src/calc/apl/interpreter.py`)
 
 The interpreter defines the expected behavior of APL operations using NumPy. Key functions include:
 
@@ -60,15 +60,15 @@ The interpreter defines the expected behavior of APL operations using NumPy. Key
 - `_reduce(ctx, buf)`: Returns `NumpyBuffer(np.sum(buf.arr, axis=-1, dtype=np.int64))`, wrapping scalars in 1D arrays for 1D inputs.
 - Study these functions to understand the input/output behavior your C code must replicate.
 
-#### Codegen Functions (`src/apl2c/apl/codegen.py`)
+#### Codegen Functions (`src/calc/apl/codegen.py`)
 
-- **Inputs**: Each function takes an `APL2CContext` (`ctx`) and arguments (`apl.Variable` for arrays, `apl.Literal` for scalars or shapes).
+- **Inputs**: Each function takes an `CALCContext` (`ctx`) and arguments (`apl.Variable` for arrays, `apl.Literal` for scalars or shapes).
 - **Output**: Returns a string (the result variable name) representing the output `NumpyBuffer` in the generated C code.
 - **Tools**:
   - `ctx.exec(f"{ctx.feed}...")`: Emits C code statements.
   - `ctx.freshen(name)`: Generates unique variable names (e.g., `result_1`, `i_0`).
 
-#### NumpyBuffer (`src/apl2c/codegen/numpy_buffer.py`)
+#### NumpyBuffer (`src/calc/codegen/numpy_buffer.py`)
 
 - Defines the `NumpyBuffer` struct with fields:
   - `arr`: Pointer to the NumPy array.
@@ -116,7 +116,7 @@ of the specific functions.
 
 We would like to present you with the following options to avail a bonus:
 1. Implement additional operations such as dot products, mul-reduce, etc. Please add the specific interpreter functions in `interpreter.py` and the corresponding codegen functions in `codegen.py`. Add test cases for these new operations in `test_apl_codegen.py`. Include a brief description of the new operation as a docstring in the codegen function.
-2. Implement a parser that can parse a subset of APL syntax and generate an Abstract Syntax Tree (AST). This parser should be able to handle basic APL expressions and convert them into a format that can be processed by the existing codegen functions. You can create a new file `parser.py` in the `src/apl2c/apl/` directory for this purpose. Add test cases for the parser in a new test file `test_parser.py`.
+2. Implement a parser that can parse a subset of APL syntax and generate an Abstract Syntax Tree (AST). This parser should be able to handle basic APL expressions and convert them into a format that can be processed by the existing codegen functions. You can create a new file `parser.py` in the `src/calc/apl/` directory for this purpose. Add test cases for the parser in a new test file `test_parser.py`.
 
 You have the discretion to choose either one of the above options for a bonus. Please ensure that your code is well-documented and includes test cases to validate the functionality of the new features you implement.
 
@@ -135,7 +135,7 @@ You have the discretion to choose either one of the above options for a bonus. P
 
 ### Deliverables
 
-- Implement all eight codegen functions (`_c_add`, `_c_sub`, `_c_neg`, `_c_exp`, `_c_transpose`, `_c_iota`, `_c_reshape`, `_c_reduce`) in `src/apl2c/apl/codegen.py`.
+- Implement all eight codegen functions (`_c_add`, `_c_sub`, `_c_neg`, `_c_exp`, `_c_transpose`, `_c_iota`, `_c_reshape`, `_c_reduce`) in `src/calc/apl/codegen.py`.
 - Ensure all tests in `tests/test_apl_codegen.py` pass, verifying that codegen output matches interpreter output.
 - Adhere to coding standards in `CONTRIBUTING.md` (e.g., consistent indentation, clear variable names).
 - Do not modify `interpreter.py`, `numpy_buffer.py`, or other files unless explicitly instructed.

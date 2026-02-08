@@ -7,17 +7,17 @@ import pytest
 import numpy as np
 from numpy.testing import assert_equal
 
-import apl2c
-import apl2c.example_lang as exmpl
-from apl2c import ftype
-from apl2c.codegen import (
+import calc
+import calc.example_lang as exmpl
+from calc import ftype
+from calc.codegen import (
     NumpyBuffer,
 )
-from apl2c.example_lang import (
+from calc.example_lang import (
     Example2CCompiler,
     Example2CGenerator,
 )
-from apl2c.example_lang import (
+from calc.example_lang import (
     Example2CCompiler,
     Example2CContext,
     Example2CGenerator,
@@ -32,7 +32,7 @@ def test_add_function():
         return a + b;
     }
     """
-    f = apl2c.codegen.c.load_shared_lib(c_code).add
+    f = calc.codegen.c.load_shared_lib(c_code).add
     result = f(3, 4)
     assert result == 7, f"Expected 7, got {result}"
 

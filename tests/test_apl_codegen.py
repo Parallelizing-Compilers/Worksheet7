@@ -2,12 +2,12 @@ import pytest
 
 import numpy as np
 
-import apl2c.apl as apl
-from apl2c.apl import (
-    APL2CCompiler,
+import calc.apl as apl
+from calc.apl import (
+    CALCCompiler,
     APLInterpreter,
 )
-from apl2c.codegen import NumpyBuffer, NumpyBufferFType
+from calc.codegen import NumpyBuffer, NumpyBufferFType
 
 
 @pytest.mark.parametrize(
@@ -41,7 +41,7 @@ def test_mk_array(values, expected):
 
     prgm = apl.Module((test_function,))
 
-    mod_codegen = APL2CCompiler()(prgm)
+    mod_codegen = CALCCompiler()(prgm)
     mod_interpreter = APLInterpreter()(prgm)
 
     expected = mod_interpreter.test_mk_array(*values).arr
@@ -170,8 +170,8 @@ def test_operations(op, inputs, expected):
         *[NumpyBuffer(x) if isinstance(x, np.ndarray) else x for x in inputs]
     ).arr
 
-    # Run with APL2C Compiler
-    mod_codegen = APL2CCompiler()(prgm)
+    # Run with CALC Compiler
+    mod_codegen = CALCCompiler()(prgm)
     result = getattr(mod_codegen, f"test_{op}")(
         *[NumpyBuffer(x) if isinstance(x, np.ndarray) else x for x in inputs]
     ).arr
@@ -236,8 +236,8 @@ def test_exp(input_array, power, expected):
 
     prgm = apl.Module((test_function,))
 
-    # Run with APL2C Compiler
-    mod_codegen = APL2CCompiler()(prgm)
+    # Run with CALC Compiler
+    mod_codegen = CALCCompiler()(prgm)
     result = mod_codegen.test_exp(NumpyBuffer(input_array), power.val).arr
 
     # Run with APL Interpreter
@@ -301,11 +301,11 @@ def test_transpose(input_array, expected):
 
     prgm = apl.Module((test_function,))
 
-    # Run with APL2C Compiler
-    mod_codegen = APL2CCompiler()(prgm)
+    # Run with CALC Compiler
+    mod_codegen = CALCCompiler()(prgm)
     result = mod_codegen.test_transpose(NumpyBuffer(input_array)).arr
 
-    # Run with APL2C Interpreter
+    # Run with CALC Interpreter
     mod_interpreter = APLInterpreter()(prgm)
     expected = mod_interpreter.test_transpose(NumpyBuffer(input_array)).arr
 
@@ -361,8 +361,8 @@ def test_iota(range_val, expected):
     # Create program with the function
     prgm = apl.Module((test_function,))
 
-    # Run with APL2CCompiler
-    mod_codegen = APL2CCompiler()(prgm)
+    # Run with CALCCompiler
+    mod_codegen = CALCCompiler()(prgm)
     result = mod_codegen.test_iota(range_val.val).arr
 
     # Run with APLInterpreter
@@ -430,8 +430,8 @@ def test_reduce(input_array, expected):
 
     prgm = apl.Module((test_function,))
 
-    # Run with APL2CCompiler
-    mod_codegen = APL2CCompiler()(prgm)
+    # Run with CALCCompiler
+    mod_codegen = CALCCompiler()(prgm)
     result = mod_codegen.test_reduce(NumpyBuffer(input_array)).arr
 
     # Run with APLInterpreter
@@ -493,7 +493,7 @@ def test_reshape(shape, input_array, expected):
     prgm = apl.Module((test_function,))
 
     mod_interpreter = APLInterpreter()(prgm)
-    mod_codegen = APL2CCompiler()(prgm)
+    mod_codegen = CALCCompiler()(prgm)
 
     expected = mod_interpreter.test_reshape(NumpyBuffer(input_array), *shape).arr
     result = mod_codegen.test_reshape(NumpyBuffer(input_array), *shape).arr

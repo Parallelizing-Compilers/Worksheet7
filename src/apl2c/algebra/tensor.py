@@ -35,7 +35,7 @@ class Tensor(FTyped, ABC):
     multi-dimensional arrays that can be used to represent data in various
     formats. They support operations such as indexing, slicing, and reshaping,
     and can be used in mathematical computations. This class provides the basic
-    interface for tensors to be used with lazy ops in APL2C, though more
+    interface for tensors to be used with lazy ops in CALC, though more
     advanced interfaces may be required for different backends.
     """
 

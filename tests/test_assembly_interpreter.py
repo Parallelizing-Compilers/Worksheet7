@@ -7,9 +7,9 @@ import pytest
 import numpy  # noqa: F401, ICN001
 import numpy as np
 
-from apl2c import example_lang as exmpl
-from apl2c.codegen import NumpyBuffer
-from apl2c.example_lang import (  # noqa: F401
+from calc import example_lang as exmpl
+from calc.codegen import NumpyBuffer
+from calc.example_lang import (  # noqa: F401
     Assign,
     Block,
     Call,
@@ -22,7 +22,7 @@ from apl2c.example_lang import (  # noqa: F401
     Return,
     Variable,
 )
-from apl2c.symbolic import ftype
+from calc.symbolic import ftype
 
 
 @pytest.mark.parametrize(

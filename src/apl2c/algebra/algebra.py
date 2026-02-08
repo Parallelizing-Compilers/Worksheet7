@@ -1,11 +1,11 @@
 """
-APL2C performs extensive rewriting and defining of functions.  The APL2C
+CALC performs extensive rewriting and defining of functions.  The CALC
 compiler is designed to inspect objects and functions defined by other
-frameworks, such as NumPy. The APL2C compiler is designed to be extensible, so that
+frameworks, such as NumPy. The CALC compiler is designed to be extensible, so that
 users can define their own properties and behaviors for objects and functions in
 their own code or in third-party libraries.
 
-APL2C tracks properties of attributes/methods of objects or classes. Properties
+CALC tracks properties of attributes/methods of objects or classes. Properties
 of the object/class itself are accessed with the `__attr__` property.
 Properties of functions are properties of their `__call__` method.
 
@@ -18,15 +18,15 @@ For example, we might declare that the `__add__` method of a complex number
 is associative with the following code:
 
 ```python
-from apl2c import register_property
+from calc import register_property
 
 register_property(complex, "__add__", "is_associative", lambda obj: True)
 ```
 
-APL2C includes a convenience functions to query each property as well,
+CALC includes a convenience functions to query each property as well,
 for example:
 ```python
-from apl2c import query_property
+from calc import query_property
 from operator import add
 
 query_property(complex, "__add__", "is_associative")
@@ -110,31 +110,31 @@ def query_property(obj: type | Hashable, attr: str, prop: str, *args) -> Any:
         msg += "Hint: You may need to register the property by calling "
         if isinstance(obj, Hashable) and not isinstance(obj, type):
             msg += (
-                f"`apl2c.register_property({repr(obj)}, '{attr}', '{prop}', "
+                f"`calc.register_property({repr(obj)}, '{attr}', '{prop}', "
                 "lambda ...)` or "
             )
-        msg += f"`apl2c.register_property({obj_name}, '{attr}', '{prop}', lambda ...)`"
+        msg += f"`calc.register_property({obj_name}, '{attr}', '{prop}', lambda ...)`"
         msg += f"or you may define `{obj_name}.{attr}`. "
     elif attr == "__call__":
         msg += f"function '{repr(obj)}' has no property '{prop}'. "
         msg += "Hint: You may need to register the property by calling "
         if isinstance(obj, Hashable) and not isinstance(obj, type):
             msg += (
-                f"`apl2c.register_property({repr(obj)}, '{attr}', '{prop}',"
+                f"`calc.register_property({repr(obj)}, '{attr}', '{prop}',"
                 " lambda ...)` or "
             )
-        msg += f"`apl2c.register_property({obj_name}, '{attr}', '{prop}', lambda ...)`."
+        msg += f"`calc.register_property({obj_name}, '{attr}', '{prop}', lambda ...)`."
     else:
         msg += f"attribute '{obj_name}.{attr}' has no property '{prop}'. "
         msg += "You may need to register the property by calling "
         if isinstance(obj, Hashable) and not isinstance(obj, type):
             msg += (
-                f"apl2c.register_property({repr(obj)}, '{attr}', '{prop}'"
+                f"calc.register_property({repr(obj)}, '{attr}', '{prop}'"
                 ", lambda ...) or "
             )
-        msg += f"`apl2c.register_property({obj_name}, '{attr}', '{prop}', lambda ...)`."
+        msg += f"`calc.register_property({obj_name}, '{attr}', '{prop}', lambda ...)`."
     msg += (
-        " See https://github.com/apl2c-tensor/apl2c/blob/main/src/apl2c/"
+        " See https://github.com/calc-tensor/calc/blob/main/src/calc/"
         "algebra/algebra.py for more information."
     )
     raise AttributeError(msg)

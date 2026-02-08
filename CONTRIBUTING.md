@@ -1,4 +1,4 @@
-# APL2C: Contributing Guide
+# CALC: Contributing Guide
 
 Thank you for your interest in contributing! Please read the following guidelines to help us maintain a high-quality, collaborative codebase.
 
@@ -33,7 +33,7 @@ poetry run pre-commit run -a
 ```
 
 ### Testing
-APL2C uses [pytest](https://docs.pytest.org/en/latest/) for testing. To run the
+CALC uses [pytest](https://docs.pytest.org/en/latest/) for testing. To run the
 tests:
 
 ```bash

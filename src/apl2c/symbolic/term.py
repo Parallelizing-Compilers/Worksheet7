@@ -9,7 +9,7 @@ from typing import Any, Self
 """
 This module contains definitions for common functions that are useful for symbolic
 expression manipulation. Its purpose is to provide a shared interface between various
-symbolic programming in APL2C.
+symbolic programming in CALC.
 
 Classes:
     Term (ABC): An abstract base class representing a symbolic term. It provides methods

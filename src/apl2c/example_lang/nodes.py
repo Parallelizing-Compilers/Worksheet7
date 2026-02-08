@@ -11,7 +11,7 @@ class ExampleLangNode(Term):
     """
     ExampleLangNode
 
-    Represents a APL2CExampleLang IR node. APL2CExampleLang is the final intermediate
+    Represents a CALCExampleLang IR node. CALCExampleLang is the final intermediate
     representation before code generation (translation to the output language).
     It is a low-level imperative description of the program, with control flow,
     linear memory regions called "buffers", and explicit memory management.

@@ -20,7 +20,7 @@ class HaltState:
 
 class ExampleLangMachine:
     """
-    An interpreter for APL2CExampleLang.
+    An interpreter for CALCExampleLang.
     """
 
     def __init__(
@@ -61,7 +61,7 @@ class ExampleLangMachine:
 
 class ExampleLangInterpreter:
     """
-    A class to represent an interpreter for APL2CExampleLang.
+    A class to represent an interpreter for CALCExampleLang.
     This is a simple wrapper around the ExampleLangMachine that provides
     a more user-friendly interface for running programs.
     """
