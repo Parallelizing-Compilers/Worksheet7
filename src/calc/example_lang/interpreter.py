@@ -18,9 +18,9 @@ class HaltState:
     return_value: Any = None
 
 
-class ExampleLangMachine:
+class CalcLangMachine:
     """
-    An interpreter for CALCExampleLang.
+    An interpreter for CALCCalcLang.
     """
 
     def __init__(
@@ -30,7 +30,7 @@ class ExampleLangMachine:
         if bindings is None:
             bindings = ScopedDict()
 
-    def __call__(self, prgm: exmpl.ExampleLangNode):
+    def __call__(self, prgm: exmpl.CalcLangNode):
         """
         Run the program.
         """
@@ -59,15 +59,15 @@ class ExampleLangMachine:
                     f"Unrecognized assembly node type: {type(prgm)}"
                 )
 
-class ExampleLangInterpreter:
+class CalcLangInterpreter:
     """
-    A class to represent an interpreter for CALCExampleLang.
-    This is a simple wrapper around the ExampleLangMachine that provides
+    A class to represent an interpreter for CALCCalcLang.
+    This is a simple wrapper around the CalcLangMachine that provides
     a more user-friendly interface for running programs.
     """
 
     def __init__(self, verbose=False):
         self.verbose = verbose
 
-    def __call__(self, prgm: exmpl.ExampleLangNode, bindings=None):
+    def __call__(self, prgm: exmpl.CalcLangNode, bindings=None):
         return self.machine(bindings)(prgm)

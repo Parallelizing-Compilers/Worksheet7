@@ -2,7 +2,7 @@ import pytest
 
 import numpy as np
 
-from calc.apl import APLInterpreter
+from calc.apl import CALCInterpreter
 from calc.apl import nodes as apl
 from calc.codegen import NumpyBuffer, NumpyBufferFType
 
@@ -55,7 +55,7 @@ def test_mk_array(values, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_mk_array().arr
     print(result)
     assert np.array_equal(result, expected)
@@ -98,7 +98,7 @@ def test_neg(input_array, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_neg(NumpyBuffer(input_array)).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64
@@ -144,7 +144,7 @@ def test_exp(input_array, power, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_exp(NumpyBuffer(input_array)).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64
@@ -195,7 +195,7 @@ def test_add(arr1, arr2, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_add(NumpyBuffer(arr1), NumpyBuffer(arr2)).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64
@@ -246,7 +246,7 @@ def test_sub(arr1, arr2, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_sub(NumpyBuffer(arr1), NumpyBuffer(arr2)).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64
@@ -290,7 +290,7 @@ def test_reduce(input_array, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_reduce(NumpyBuffer(input_array)).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64
@@ -329,7 +329,7 @@ def test_iota(n, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_iota(n).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64
@@ -379,7 +379,7 @@ def test_reshape(shape, input_array, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_reshape(NumpyBuffer(input_array)).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64
@@ -424,7 +424,7 @@ def test_transpose(input_array, expected):
     # Create prgm with the function
     prgm = apl.Module((test_function,))
 
-    mod = APLInterpreter()(prgm)
+    mod = CALCInterpreter()(prgm)
     result = mod.test_transpose(NumpyBuffer(input_array)).arr
     assert np.array_equal(result, expected)
     assert result.dtype == np.int64

@@ -7,13 +7,13 @@ import pytest
 import numpy  # noqa: F401, ICN001
 import numpy as np
 
-from calc import example_lang as exmpl
+from calc import calc_lang as exmpl
 from calc.codegen import NumpyBuffer
-from calc.example_lang import (  # noqa: F401
+from calc.calc_lang import (  # noqa: F401
     Assign,
     Block,
     Call,
-    ExampleLangInterpreter,
+    CalcLangInterpreter,
     Function,
     If,
     IfElse,
@@ -45,7 +45,7 @@ def test_dot_product(a, b):
     ab_v = exmpl.Variable("a", ab.ftype)
     bb_v = exmpl.Variable("b", bb.ftype)
 
-    mod = ExampleLangInterpreter()(
+    mod = CalcLangInterpreter()(
         exmpl.Module(
             (
                 exmpl.Function(
@@ -157,7 +157,7 @@ def test_if_statement():
         )
     )
 
-    mod = ExampleLangInterpreter()(root)
+    mod = CalcLangInterpreter()(root)
 
     result = mod.if_else()
     assert result == 30
@@ -173,7 +173,7 @@ def test_simple_struct():
     p_var = exmpl.Variable("p", ftype(p))
     x_var = exmpl.Variable("x", ftype(x))
     res_var = exmpl.Variable("res", np.float64)
-    mod = ExampleLangInterpreter()(
+    mod = CalcLangInterpreter()(
         exmpl.Module(
             (
                 exmpl.Function(
@@ -241,7 +241,7 @@ def test_sum(a):
     ab = NumpyBuffer(a)
     ab_v = exmpl.Variable("a", ab.ftype)
 
-    mod = ExampleLangInterpreter()(
+    mod = CalcLangInterpreter()(
         exmpl.Module(
             (
                 exmpl.Function(

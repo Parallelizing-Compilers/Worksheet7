@@ -1,5 +1,5 @@
 from .algebra import Tensor, TensorFType, element_type, shape_type
-from .apl import APLInterpreter
+from .apl import CALCInterpreter
 from .codegen import (
     NumpyBuffer,
     NumpyBufferFType,
@@ -11,7 +11,7 @@ from .symbolic import (
 )
 
 __all__ = [
-    "APLInterpreter",
+    "CALCInterpreter",
     "FTyped",
     "NumpyBuffer",
     "NumpyBufferFType",

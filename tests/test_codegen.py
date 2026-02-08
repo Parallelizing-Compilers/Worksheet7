@@ -8,16 +8,16 @@ import numpy as np
 from numpy.testing import assert_equal
 
 import calc
-import calc.example_lang as exmpl
+import calc.calc_lang as exmpl
 from calc import ftype
 from calc.codegen import (
     NumpyBuffer,
 )
-from calc.example_lang import (
+from calc.calc_lang import (
     Example2CCompiler,
     Example2CGenerator,
 )
-from calc.example_lang import (
+from calc.calc_lang import (
     Example2CCompiler,
     Example2CContext,
     Example2CGenerator,
@@ -89,7 +89,7 @@ def test_codegen(compiler, buffer):
     ["compiler", "buffer"],
     [
         (Example2CCompiler(), NumpyBuffer),
-        (exmpl.ExampleLangInterpreter(), NumpyBuffer),
+        (exmpl.CalcLangInterpreter(), NumpyBuffer),
     ],
 )
 def test_dot_product(compiler, buffer):
@@ -152,7 +152,7 @@ def test_dot_product(compiler, buffer):
 
     result = mod.dot_product(a_buf, b_buf)
 
-    interp = exmpl.ExampleLangInterpreter()(prgm)
+    interp = exmpl.CalcLangInterpreter()(prgm)
 
     expected = interp.dot_product(a_buf, b_buf)
 
@@ -225,7 +225,7 @@ def test_dot_product_regression(compiler, extension, buffer, file_regression):
     ["compiler", "buffer"],
     [
         (Example2CCompiler(), NumpyBuffer),
-        (exmpl.ExampleLangInterpreter(), NumpyBuffer),
+        (exmpl.CalcLangInterpreter(), NumpyBuffer),
     ],
 )
 def test_if_statement(compiler, buffer):
@@ -294,7 +294,7 @@ def test_if_statement(compiler, buffer):
 
     result = mod.if_else()
 
-    interp = exmpl.ExampleLangInterpreter()(prgm)
+    interp = exmpl.CalcLangInterpreter()(prgm)
 
     expected = interp.if_else()
 

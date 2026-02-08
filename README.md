@@ -1,6 +1,6 @@
 # Assignment: CALC
 
-A python compiler that translates APL code to C code.
+A python compiler that translates CALC code to C code.
 
 ## Installation
 
@@ -17,23 +17,23 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, development setup, and be
 
 ### Overview
 
-CALC is a compiler that translates [APL](https://xpqz.github.io/learnapl/intro.html), an array-oriented programming language known for its concise syntax and powerful multi-dimensional array operations, into C code for efficient execution. The project comprises two main components:
+CALC is a compiler that translates [CALC](https://xpqz.github.io/learnapl/intro.html), an array-oriented programming language known for its concise syntax and powerful multi-dimensional array operations, into C code for efficient execution. The project comprises two main components:
 
 1. **Interpreter** (`src/calc/apl/interpreter.py`):
-   - Executes APL operations directly in Python using NumPy for efficient array manipulation.
-   - Defines functions such as `_add`, `_sub`, `_neg`, `_exp`, `_transpose`, `_iota`, `_reshape`, and `_reduce`, which implement the semantics of APL operations.
+   - Executes CALC operations directly in Python using NumPy for efficient array manipulation.
+   - Defines functions such as `_add`, `_sub`, `_neg`, `_exp`, `_transpose`, `_iota`, `_reshape`, and `_reduce`, which implement the semantics of CALC operations.
    - Serves as the reference for the expected behavior of each operation which is the __ground truth for your implementations__.
    - You __should not__ modify these functions.
 
 2. **Codegen** (`src/calc/apl/codegen.py`):
-   - Generates C code for APL operations, producing `NumpyBuffer` structs that interface with NumPy arrays in C.
+   - Generates C code for CALC operations, producing `NumpyBuffer` structs that interface with NumPy arrays in C.
    - The generated C code is compiled and executed.
 
 **Your task is to implement the codegen functions (`_c_add`, `_c_sub`, `_c_neg`, `_c_exp`, `_c_transpose`, `_c_iota`, `_c_reshape`, `_c_reduce`) in `src/calc/apl/codegen.py` to generate C code that matches the behavior of the corresponding interpreter functions.**
 
 ### Task Description
 
-Your goal is to implement the following functions in `codegen.py` to generate C code for APL operations:
+Your goal is to implement the following functions in `codegen.py` to generate C code for CALC operations:
 
 - `_c_add`: Performs element-wise addition of two arrays (e.g., `[1, 2] + [3, 4] → [4, 6]`).
 - `_c_sub`: Performs element-wise subtraction of two arrays (e.g., `[5, 6] - [1, 2] → [4, 4]`).
@@ -53,7 +53,7 @@ Each function must:
 
 #### Interpreter Reference (`src/calc/apl/interpreter.py`)
 
-The interpreter defines the expected behavior of APL operations using NumPy. Key functions include:
+The interpreter defines the expected behavior of CALC operations using NumPy. Key functions include:
 
 - `_add(ctx, arr1, arr2)`: Returns `NumpyBuffer(np.add(arr1.arr, arr2.arr, dtype=np.int64))`.
 - `_reshape(ctx, buf, shape)`: Returns `NumpyBuffer(np.reshape(buf.arr, shape, order='C'))`.
@@ -116,7 +116,7 @@ of the specific functions.
 
 We would like to present you with the following options to avail a bonus:
 1. Implement additional operations such as dot products, mul-reduce, etc. Please add the specific interpreter functions in `interpreter.py` and the corresponding codegen functions in `codegen.py`. Add test cases for these new operations in `test_apl_codegen.py`. Include a brief description of the new operation as a docstring in the codegen function.
-2. Implement a parser that can parse a subset of APL syntax and generate an Abstract Syntax Tree (AST). This parser should be able to handle basic APL expressions and convert them into a format that can be processed by the existing codegen functions. You can create a new file `parser.py` in the `src/calc/apl/` directory for this purpose. Add test cases for the parser in a new test file `test_parser.py`.
+2. Implement a parser that can parse a subset of CALC syntax and generate an Abstract Syntax Tree (AST). This parser should be able to handle basic CALC expressions and convert them into a format that can be processed by the existing codegen functions. You can create a new file `parser.py` in the `src/calc/apl/` directory for this purpose. Add test cases for the parser in a new test file `test_parser.py`.
 
 You have the discretion to choose either one of the above options for a bonus. Please ensure that your code is well-documented and includes test cases to validate the functionality of the new features you implement.
 

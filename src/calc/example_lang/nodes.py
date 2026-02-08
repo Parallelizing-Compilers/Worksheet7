@@ -7,11 +7,11 @@ from ..symbolic import Context, Term, TermTree, literal_repr
 from ..util import qual_str
 
 
-class ExampleLangNode(Term):
+class CalcLangNode(Term):
     """
-    ExampleLangNode
+    CalcLangNode
 
-    Represents a CALCExampleLang IR node. CALCExampleLang is the final intermediate
+    Represents a CALCCalcLang IR node. CALCCalcLang is the final intermediate
     representation before code generation (translation to the output language).
     It is a low-level imperative description of the program, with control flow,
     linear memory regions called "buffers", and explicit memory management.
@@ -37,19 +37,19 @@ class ExampleLangNode(Term):
 
     def __str__(self):
         """Returns a string representation of the node."""
-        ctx = ExampleLangPrinterContext()
+        ctx = CalcLangPrinterContext()
         ctx(self)
         return ctx.emit()
 
 
-class ExampleLangTree(ExampleLangNode, TermTree):
+class CalcLangTree(CalcLangNode, TermTree):
     @property
     def children(self):
         """Returns the children of the node."""
         raise Exception(f"`children` isn't supported for {self.__class__}.")
 
 
-class ExampleLangExpression(ExampleLangNode):
+class CalcLangExpression(CalcLangNode):
     @property
     @abstractmethod
     def result_ftype(self):
@@ -58,7 +58,7 @@ class ExampleLangExpression(ExampleLangNode):
 
 
 @dataclass(eq=True, frozen=True)
-class Literal(ExampleLangExpression):
+class Literal(CalcLangExpression):
     """
     Represents the literal value `val`.
 
@@ -78,7 +78,7 @@ class Literal(ExampleLangExpression):
 
 
 @dataclass(eq=True, frozen=True)
-class Variable(ExampleLangExpression):
+class Variable(CalcLangExpression):
     """
     Represents a logical AST expression for a variable named `name`, which
     will hold a value of type `type`.
@@ -101,7 +101,7 @@ class Variable(ExampleLangExpression):
 
 
 @dataclass(eq=True, frozen=True)
-class Call(ExampleLangExpression, ExampleLangTree):
+class Call(CalcLangExpression, CalcLangTree):
     """
     Represents an expression for calling the function `op` on `args...`.
 
@@ -111,7 +111,7 @@ class Call(ExampleLangExpression, ExampleLangTree):
     """
 
     op: Literal
-    args: tuple[ExampleLangNode, ...]
+    args: tuple[CalcLangNode, ...]
 
     @property
     def children(self):
@@ -129,7 +129,7 @@ class Call(ExampleLangExpression, ExampleLangTree):
         return return_type(self.op.val, *arg_types)
 
 
-class ExampleLangPrinterContext(Context):
+class CalcLangPrinterContext(Context):
     def __init__(self, tab="    ", indent=0):
         super().__init__()
         self.tab = tab
@@ -142,7 +142,7 @@ class ExampleLangPrinterContext(Context):
     def emit(self):
         return "\n".join([*self.preamble, *self.epilogue])
 
-    def block(self) -> "ExampleLangPrinterContext":
+    def block(self) -> "CalcLangPrinterContext":
         blk = super().block()
         blk.indent = self.indent
         blk.tab = self.tab
@@ -153,7 +153,7 @@ class ExampleLangPrinterContext(Context):
         blk.indent = self.indent + 1
         return blk
 
-    def __call__(self, prgm: ExampleLangNode):
+    def __call__(self, prgm: CalcLangNode):
         feed = self.feed
         match prgm:
             case Literal(value):
