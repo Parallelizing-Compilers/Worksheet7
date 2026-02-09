@@ -49,11 +49,7 @@ class CalcLangTree(CalcLangNode, TermTree):
 
 
 class CalcLangExpression(CalcLangNode):
-    @property
-    @abstractmethod
-    def result_ftype(self):
-        """Returns the type of the expression."""
-        ...
+    ...
 
 
 @dataclass(eq=True, frozen=True)
@@ -67,11 +63,6 @@ class Literal(CalcLangExpression):
 
     val: Any
 
-    @property
-    def result_ftype(self):
-        """Returns the type of the expression."""
-        return type(self.val)
-
     def __repr__(self) -> str:
         return literal_repr(type(self).__name__, asdict(self))
 
@@ -84,16 +75,9 @@ class Variable(CalcLangExpression):
 
     Attributes:
         name: The name of the variable.
-        type: The type of the variable.
     """
 
     name: str
-    type: Any
-
-    @property
-    def result_ftype(self):
-        """Returns the type of the expression."""
-        return self.type
 
     def __repr__(self) -> str:
         return literal_repr(type(self).__name__, asdict(self))
@@ -117,11 +101,6 @@ class Add(CalcLangExpression, CalcLangTree):
         """Returns the children of the node."""
         return [self.left, self.right]
 
-    @property
-    def result_ftype(self):
-        """Returns the type of the expression."""
-        return return_type("add", self.left.result_ftype, self.right.result_ftype)
-
 
 @dataclass(eq=True, frozen=True)
 class Mul(CalcLangExpression, CalcLangTree):
@@ -141,11 +120,6 @@ class Mul(CalcLangExpression, CalcLangTree):
         """Returns the children of the node."""
         return [self.left, self.right]
 
-    @property
-    def result_ftype(self):
-        """Returns the type of the expression."""
-        return return_type("mul", self.left.result_ftype, self.right.result_ftype)
-
 
 @dataclass(eq=True, frozen=True)
 class Pow(CalcLangExpression, CalcLangTree):
@@ -164,11 +138,6 @@ class Pow(CalcLangExpression, CalcLangTree):
     def children(self):
         """Returns the children of the node."""
         return [self.base, self.exponent]
-
-    @property
-    def result_ftype(self):
-        """Returns the type of the expression."""
-        return return_type("pow", self.base.result_ftype, self.exponent.result_ftype)
 
 
 class CalcLangPrinterContext(Context):
@@ -200,7 +169,7 @@ class CalcLangPrinterContext(Context):
         match prgm:
             case Literal(value):
                 return qual_str(value)
-            case Variable(name, _):
+            case Variable(name):
                 return str(name)
             case Add(left, right):
                 return f"({self(left)} + {self(right)})"

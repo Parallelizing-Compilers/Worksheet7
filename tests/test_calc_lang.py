@@ -63,8 +63,6 @@ class TestCalcLangInterpreter:
         assert abs(result - 1.414213562373095) < 1e-10
 
 
-
-
 class TestCalcLangPrinter:
     """Test calc_lang string representation."""
 

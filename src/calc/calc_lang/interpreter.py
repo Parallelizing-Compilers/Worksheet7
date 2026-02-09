@@ -27,14 +27,7 @@ class CalcLangMachine:
         match prgm:
             case exmpl.Literal(value):
                 return value
-            case exmpl.Variable(var_n, var_t):
-                if var_n in self.types:
-                    def_t = self.types[var_n]
-                    if def_t != var_t:
-                        raise TypeError(
-                            f"Variable '{var_n}' is declared as type {def_t}, "
-                            f"but used as type {var_t}."
-                        )
+            case exmpl.Variable(var_n):
                 if var_n in self.bindings:
                     return self.bindings[var_n]
                 raise KeyError(
