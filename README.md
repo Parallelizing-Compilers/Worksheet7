@@ -4,12 +4,22 @@ A python compiler that translates CALC code to C code.
 
 ## Installation
 
-CALC uses [poetry](https://python-poetry.org/) for packaging. To install for
-development, clone the repository and run:
+CALC uses [poetry](https://python-poetry.org/) for packaging. To install for development, clone the repository and run one of the following
+
+1. `[Option 1]`: personal machine
 ```bash
 poetry install --extras test
 ```
-to install the current project and dev dependencies.
+
+
+2. `[Option 2]`: PACE
+```bash
+module load python/3.12.5
+python3 -m venv wk7
+source wk7/bin/activate
+pip install -r requirements.txt
+pip install .
+```
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, development setup, and best practices.
@@ -38,6 +48,12 @@ Your task is to implement the normalization logic in `src/calc/normalize.py` so 
 You can run the simple test cases provided in `tests/test_calc_lang.py` to verify your implementation. The tests check if the normalization process correctly transforms various expressions into their normalized polynomial form.
 
 Run tests with:
+1. `[Option 1]`: personal machine
 ```bash
 poetry run pytest
+```
+
+2. `[Option 2]`: PACE
+```bash
+pytest tests/
 ```
