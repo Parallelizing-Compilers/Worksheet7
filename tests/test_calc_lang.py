@@ -91,7 +91,7 @@ class TestCalcLangPrinter:
         """Test string representation of power."""
         expr = Pow(Literal(2), Literal(3))
         s = str(expr)
-        assert "**" in s
+        assert "^" in s
         assert "2" in s
         assert "3" in s
 
