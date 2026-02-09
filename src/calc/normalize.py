@@ -8,10 +8,6 @@ def normalize(node:CalcLangExpression):
                 return Literal(x + y)
             case Mul(Add(a, b), c):
                 return Add(Mul(a, c), Mul(b, c))
-            case Mul(c, Add(a, b)):
-                return Add(Mul(c, a), Mul(c, b))
-            case Pow(x, Literal(n)) if not isinstance(x, Literal | Variable) and n > 1:
-                return Mul(x, Pow(x, Literal(n - 1)))
             case Mul(x, Pow(y, Literal(n))) if x == y:
                 return Pow(x, Literal(n + 1))
             case _:

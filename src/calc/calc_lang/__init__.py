@@ -7,6 +7,7 @@ from .nodes import (
     Mul,
     Pow,
     Variable,
+    Sub,
 )
 
 __all__ = [
@@ -19,4 +20,5 @@ __all__ = [
     "Mul",
     "Pow",
     "Variable",
+    "Sub",
 ]

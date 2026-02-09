@@ -1,7 +1,7 @@
 """Tests for calc_lang nodes and interpreter."""
 
 import pytest
-from calc.calc_lang import Add, CalcLangInterpreter, Literal, Mul, Pow, Variable
+from calc.calc_lang import Add, CalcLangInterpreter, Literal, Sub, Mul, Pow, Variable
 
 
 class TestCalcLangInterpreter:
@@ -115,9 +115,11 @@ class TestCalcLangNormalization:
             Pow(Literal(2), Literal(3)),
             Add(Mul(Variable("x"), Literal(2)), Literal(3)),
             Mul(Add(Variable("x"), Literal(2)), Literal(3)),
+            Mul(Sub(Variable("x"), Literal(2)), Literal(3)),
             Pow(Variable("x"), Literal(3)),
             Pow(Add(Variable("x"), Literal(2)), Literal(3)),
             Pow(Mul(Add(Variable("x"), Literal(2)), Add(Variable("x"), Literal(3))), Literal(2)),
+            Sub(Mul(Add(Literal(2), Variable("x")), Add(Literal(8), Pow(Variable("x"), Literal(2)))), Sub(Literal(3), Pow(Mul(Variable("x"), Literal(4)), Literal(2)))),
         ]
     )
     def test_normalization(self, program):

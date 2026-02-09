@@ -100,6 +100,24 @@ class Add(CalcLangExpression, CalcLangTree):
         """Returns the children of the node."""
         return [self.left, self.right]
 
+@dataclass(eq=True, frozen=True)
+class Sub(CalcLangExpression, CalcLangTree):
+    """
+    Represents a subtraction expression: left - right.
+
+    Attributes:
+        left: The left operand.
+        right: The right operand.
+    """
+
+    left: CalcLangExpression
+    right: CalcLangExpression
+
+    @property
+    def children(self):
+        """Returns the children of the node."""
+        return [self.left, self.right]
+
 
 @dataclass(eq=True, frozen=True)
 class Mul(CalcLangExpression, CalcLangTree):
@@ -164,7 +182,6 @@ class CalcLangPrinterContext(Context):
         return blk
 
     def __call__(self, prgm: CalcLangNode):
-        feed = self.feed
         match prgm:
             case Literal(value):
                 return qual_str(value)
@@ -172,9 +189,11 @@ class CalcLangPrinterContext(Context):
                 return str(name)
             case Add(left, right):
                 return f"({self(left)} + {self(right)})"
+            case Sub(left, right):
+                return f"({self(left)} - {self(right)})"
             case Mul(left, right):
                 return f"({self(left)} * {self(right)})"
             case Pow(base, exponent):
-                return f"({self(base)} ** {self(exponent)})"
+                return f"({self(base)} ^ {self(exponent)})"
             case _:
                 raise NotImplementedError
