@@ -49,6 +49,8 @@ where $a_{n}$ are coefficients and $x$ is the variable.
 
 Your task is to implement the normalization logic in `src/calc/normalize.py` so that it can take any expression composed of these nodes and rewrite it into the standard polynomial form.
 
+A short hint: First factor the expression into a sum of products, then combine like terms by collecting coefficients and variables together. Finally, you can sort the terms by their degree (the exponent of the variable) and reorder coefficients before powers or variables.
+
 You can run the simple test cases provided in `tests/test_calc_lang.py` to verify your implementation. The tests check if the normalization process correctly transforms various expressions into their normalized polynomial form.
 
 Run tests with:
@@ -66,7 +68,7 @@ pytest tests/test_normalize.py
 
 In this worksheet, you'll implement a parser that takes a string representation of a CALC expression and converts it into the corresponding AST using the nodes defined in `src/calc/calc_lang/nodes.py`.
 
-Fill out the grammar and parsing logic in `src/calc/parser.py` to achieve this. The parser should be able to handle expressions that include literals, variables, addition, subtraction, multiplication, and exponentiation, and follow operator precedence rules like PEMDAS.
+Fill out the grammar and parsing logic in `src/calc/parser.py` to achieve this. The parser should be able to handle expressions that include literals, variables, addition, subtraction, multiplication, and exponentiation, and follow [operator precedence rules](https://en.wikipedia.org/wiki/Order_of_operations) like PEMDAS.
 
 You may find the [lark documentation](https://lark-parser.readthedocs.io/en/stable/) helpful for implementing the parser.
 

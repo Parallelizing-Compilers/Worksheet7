@@ -14,8 +14,10 @@ lark_parser = Lark("""
     int_literal: SIGNED_INT
     float_literal: SIGNED_FLOAT
 
-    expr: sub_expr
-    sub_expr: literal ("-" literal)*
+    variable: CNAME
+
+    expr: add_expr
+    add_expr: (literal "+")? literal
 
     start: expr
 """)
@@ -26,23 +28,17 @@ def parse(expr: str) -> calc_lang.CalcLangExpression:
 
 def _parse(tree: Tree) -> calc_lang.CalcLangExpression:
     match tree:
-        case Tree(
-            "start" |
-            "expr" |
-            "literal" |
-            "sub_expr",
-            [expr]
-        ):
+        case Tree("start" | "literal" | "expr" | "add_expr", [expr]):
             return _parse(expr)
-        case Tree("sub_expr", [left, *rest]):
+        case Tree("add_expr", [left, right]):
             left_expr = _parse(left)
-            right_expr = _parse(Tree("sub_expr", rest)) if len(rest) > 0 else rest
-            return calc_lang.Sub(left_expr, right_expr)
+            right_expr = _parse(right)
+            return calc_lang.Add(left_expr, right_expr)
         case Tree("int_literal", [value]):
             return calc_lang.Literal(int(value))
         case Tree("float_literal", [value]):
             return calc_lang.Literal(float(value))
         case _:
             raise ValueError(
-                f"Expected top-level assignment or increment, got {tree.data}"
+                f"Unexpected tree node: {tree.data} with children {tree.children}"
             )
