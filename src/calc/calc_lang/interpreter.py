@@ -33,6 +33,8 @@ class CalcLangMachine:
                 )
             case exmpl.Add(left, right):
                 return self(left) + self(right)
+            case exmpl.Sub(left, right):
+                return self(left) - self(right)
             case exmpl.Mul(left, right):
                 return self(left) * self(right)
             case exmpl.Pow(base, exponent):
