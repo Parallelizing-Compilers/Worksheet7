@@ -28,12 +28,12 @@ student@local:~> ssh <gatech_username>@login-ice.pace.gatech.edu
 student@login-ice-1:~> cd scratch
 student@login-ice-1:~> git clone https://github.com/Parallelizing-Compilers/CALC.git
 student@login-ice-1:~> cd CALC
-student@login-ice-1:~> salloc -N 1 -ntasks-per-node 1 -t 60 -C gold6226
-student@atl1-1-02-003-19-2:~> module load python/3.12.5
-student@atl1-1-02-003-19-2:~> python3 -m venv calc
-student@atl1-1-02-003-19-2:~> source wk7/bin/activate
-student@atl1-1-02-003-19-2:~> pip install -r requirements.txt
-student@atl1-1-02-003-19-2:~> pip install .
+student@login-ice-1:CALC> salloc -N 1 -t 60 -C gold6226
+student@atl1-1-02-003-19-2:CALC> module load python/3.12.5
+student@atl1-1-02-003-19-2:CALC> python3 -m venv calc
+student@atl1-1-02-003-19-2:CALC> source calc/bin/activate
+(calc) [wahrens6@atl1-1-02-004-15-2 CALC]> pip install -r requirements.txt
+(calc) [wahrens6@atl1-1-02-004-15-2 CALC]> pip install .
 ```
 
 ## Contributing
