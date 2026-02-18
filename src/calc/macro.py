@@ -21,8 +21,6 @@ def macro(f):
         case _:
             raise ValueError("Expected a function with a single expression in the body")
 
-
-
 def _parse(node):
     match node:
         case ast.Constant(value):
