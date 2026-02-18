@@ -1,5 +1,14 @@
-from .calc_lang import Add, CalcLangExpression, Literal, Mul, Pow, Sub, Variable
-from .symbolic import Chain, Fixpoint, PostWalk, Rewrite
+from .calc_lang import (  # noqa: F401
+    Add,
+    CalcLangExpression,
+    Literal,
+    Mul,
+    Pow,
+    Sub,
+    Variable,
+)
+from .symbolic import Chain, Fixpoint, PostWalk, Rewrite  # noqa: F401
+
 
 def normalize(node: CalcLangExpression):
     def rewrite(node: CalcLangExpression):
