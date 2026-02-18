@@ -111,12 +111,12 @@ def normalize(node: CalcLangExpression):
 
 def _is_normalized(node: CalcLangExpression):
     match node:
-        case Add(Mul(Literal(a), Pow(Variable(x), Literal(n))), y):
+        case Add(Mul(Literal(_), Pow(Variable(x), Literal(n))), y):
             z, m, c = _is_normalized(y)
             if c and x == z and n == m + 1:
                 return x, n, c
             return (None, None, False)
-        case Add(Mul(Literal(a), Variable(x)), Literal(c)):
+        case Add(Mul(Literal(_), Variable(x)), Literal(c)):
             return x, 1, True
         case Literal(_):
             return (None, 0, True)
