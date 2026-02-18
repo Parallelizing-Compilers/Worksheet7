@@ -35,16 +35,16 @@ def parse(expr: str) -> calc_lang.CalcLangExpression:
 def _parse(tree: Tree) -> calc_lang.CalcLangExpression:
     match tree:
         case Tree(
-            "start" |
-            "expr" |
-            "addsub_expr" |
-            "primary" |
-            "literal" |
-            "sub_expr" |
-            "power_expr"|
-            "add_expr" |
-            "mul_expr",
-            [expr]
+            "start"
+            | "expr"
+            | "addsub_expr"
+            | "primary"
+            | "literal"
+            | "sub_expr"
+            | "power_expr"
+            | "add_expr"
+            | "mul_expr",
+            [expr],
         ):
             return _parse(expr)
         case Tree("sub_expr", [left, right]):
