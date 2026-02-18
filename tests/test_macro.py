@@ -1,6 +1,5 @@
-import pytest
+from calc import calc_lang, macro
 
-from calc import macro, calc_lang
 
 def test_macro():
     @macro
@@ -9,10 +8,7 @@ def test_macro():
 
     assert example == calc_lang.Add(
         calc_lang.Literal(2),
-        calc_lang.Mul(
-            calc_lang.Literal(3),
-            calc_lang.Variable("x")
-        )
+        calc_lang.Mul(calc_lang.Literal(3), calc_lang.Variable("x")),
     )
 
     @macro
@@ -20,23 +16,15 @@ def test_macro():
         return (x + y) * (x - y)
 
     assert example2 == calc_lang.Mul(
-        calc_lang.Add(
-            calc_lang.Variable("x"),
-            calc_lang.Variable("y")
-        ),
-        calc_lang.Sub(
-            calc_lang.Variable("x"),
-            calc_lang.Variable("y")
-        )
+        calc_lang.Add(calc_lang.Variable("x"), calc_lang.Variable("y")),
+        calc_lang.Sub(calc_lang.Variable("x"), calc_lang.Variable("y")),
     )
 
     @macro
     def example3(x):
         return (x + 1) ** 2
+
     assert example3 == calc_lang.Pow(
-        calc_lang.Add(
-            calc_lang.Variable("x"),
-            calc_lang.Literal(1)
-        ),
-        calc_lang.Literal(2)
+        calc_lang.Add(calc_lang.Variable("x"), calc_lang.Literal(1)),
+        calc_lang.Literal(2),
     )

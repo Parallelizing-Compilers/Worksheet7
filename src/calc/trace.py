@@ -1,7 +1,9 @@
 from calc import calc_lang
 
+
 class Tracer:
     """A tracer to construct a calc_lang expression from a Python expression."""
+
     expr: calc_lang.CalcLangExpression
 
     def __init__(self, expr: calc_lang.CalcLangExpression):
@@ -11,18 +13,18 @@ class Tracer:
         return Tracer(calc_lang.Add(self.expr, trace(other).expr))
 
     # Your implementation here!
-    #https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types
+    # https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types
+
 
 def trace(name) -> Tracer:
     if isinstance(name, Tracer):
         return name
-    elif isinstance(name, str):
+    if isinstance(name, str):
         return Tracer(calc_lang.Variable(name))
-    elif isinstance(name, int) or isinstance(name, float):
+    if isinstance(name, int | float):
         return trace_lit(name)
-    else:
-        raise ValueError(f"Expected a string or a number, got {name} of type"
-            f"{type(name)}")
+    raise ValueError(f"Expected a string or a number, got {name} of type{type(name)}")
 
-def trace_lit(value: int | float) -> Tracer:
+
+def trace_lit(value: float) -> Tracer:
     return Tracer(calc_lang.Literal(value))

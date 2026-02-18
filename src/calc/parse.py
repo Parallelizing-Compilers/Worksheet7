@@ -1,4 +1,5 @@
 from lark import Lark, Tree
+
 import calc.calc_lang as calc_lang
 
 # Your grammar here! Feel free to modify the below example grammar as much as
@@ -22,9 +23,11 @@ lark_parser = Lark("""
     start: expr
 """)
 
+
 def parse(expr: str) -> calc_lang.CalcLangExpression:
     tree = lark_parser.parse(expr)
     return _parse(tree)
+
 
 def _parse(tree: Tree) -> calc_lang.CalcLangExpression:
     match tree:
