@@ -13,7 +13,7 @@ def test_trace_pythagorean():
     a = trace("a")
     b = trace("b")
     result = ((a * a) + (b * b)) ** 0.5
-    assert result.expr == calc_lang.Power(
+    assert result.expr == calc_lang.Pow(
         calc_lang.Add(
             calc_lang.Mul(
                 calc_lang.Variable("a"),
